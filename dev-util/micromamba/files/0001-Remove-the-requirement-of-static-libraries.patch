@@ -1,0 +1,29 @@
+From ab1a15cdaa3624a829ecb18dfd962191dc16519e Mon Sep 17 00:00:00 2001
+From: Guanpeng Xu <herberteuler@gmail.com>
+Date: Tue, 30 Sep 2025 11:28:48 -0700
+Subject: [PATCH] Remove the requirement of static libraries
+
+---
+ CMakeLists.txt | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
+
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index 21e1b0c7..ba2dbab4 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -67,9 +67,9 @@ if(BUILD_MAMBA)
+ endif()
+ 
+ # micromamba requires static linkage
+-if(BUILD_MICROMAMBA)
+-    set(BUILD_STATIC ON)
+-endif()
++#if(BUILD_MICROMAMBA)
++#    set(BUILD_STATIC ON)
++#endif()
+ 
+ # libmamba library and tests
+ if(BUILD_LIBMAMBA)
+-- 
+2.49.1
+
