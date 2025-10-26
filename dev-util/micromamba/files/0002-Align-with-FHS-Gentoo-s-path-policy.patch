@@ -1,0 +1,28 @@
+From 7463da7fb6ba3bec7b690dcb6b6f8a435910d265 Mon Sep 17 00:00:00 2001
+From: Guanpeng Xu <herberteuler@gmail.com>
+Date: Mon, 27 Oct 2025 07:07:23 -0700
+Subject: [PATCH] Align with FHS/Gentoo's path policy
+
+---
+ micromamba/CMakeLists.txt | 5 +----
+ 1 file changed, 1 insertion(+), 4 deletions(-)
+
+diff --git a/micromamba/CMakeLists.txt b/micromamba/CMakeLists.txt
+index 7feffbd8..7f4f94da 100644
+--- a/micromamba/CMakeLists.txt
++++ b/micromamba/CMakeLists.txt
+@@ -123,10 +123,7 @@ if(BUILD_SHARED AND UNIX)
+         "${CMAKE_CURRENT_BINARY_DIR}/etc/profile.d/mamba.sh"
+     )
+ 
+-    install(
+-        FILES ${CMAKE_CURRENT_BINARY_DIR}/etc/profile.d/mamba.sh
+-        DESTINATION ${CMAKE_INSTALL_PREFIX}/etc/profile.d/
+-    )
++    install(FILES ${CMAKE_CURRENT_BINARY_DIR}/etc/profile.d/mamba.sh DESTINATION /etc/profile.d RENAME mamba.sh.disabled)
+ endif()
+ 
+ install(
+-- 
+2.51.0
+
