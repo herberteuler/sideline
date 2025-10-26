@@ -22,7 +22,7 @@ DEPEND="
 	dev-cpp/cli11
 	dev-cpp/nlohmann_json
 	dev-cpp/reproc
-	dev-cpp/tl-expected
+	dev-cpp/expected
 	dev-cpp/yaml-cpp
 	dev-libs/libfmt
 	dev-libs/libsolv[conda]
