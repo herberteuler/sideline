@@ -1,4 +1,4 @@
-# Copyright 1999-2025 Gentoo Authors
+# Copyright 1999-2026 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v3
 
 EAPI=8
@@ -41,7 +41,7 @@ DEPEND="
 "
 
 RDEPEND="
-	$DEPEND
+	${DEPEND}
 	!dev-util/mamba
 	!dev-util/micromamba-bin
 	python? (
@@ -81,7 +81,7 @@ src_configure() {
 EOF
 	local mycmakeargs=(
 		-DBUILD_LIBMAMBA=ON
-		-DBUILD_LIBMAMBA_TESTS=NO
+		-DBUILD_LIBMAMBA_TESTS=OFF
 		-DBUILD_MAMBA_PACKAGE=OFF
 		-DBUILD_MICROMAMBA=ON
 		-DBUILD_SHARED=ON
@@ -108,4 +108,4 @@ src_install() {
 	fi
 }
 
-distutils_enable_tests pytest
+use python && distutils_enable_tests pytest
