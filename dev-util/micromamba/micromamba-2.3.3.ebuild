@@ -108,4 +108,14 @@ src_install() {
 	fi
 }
 
-use python && distutils_enable_tests pytest
+src_test() {
+	cmake_src_test
+	if use python; then
+		cd libmambapy
+		distutils-r1_src_test
+	fi
+}
+
+python_test() {
+	epytest
+}
