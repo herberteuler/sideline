@@ -1,0 +1,32 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Guanpeng Xu <herberteuler@gmail.com>
+Date: Thu, 16 Apr 2026 00:00:00 -0700
+Subject: [PATCH] Disambiguate ref-qualified overloads in pybind11 bindings
+
+UnresolvedChannel::location() and UnresolvedChannel::platform_filters()
+each have both const& and && overloads.  Passing &UnresolvedChannel::location
+directly to pybind11 is ambiguous.  Use lambdas to select the const& overload,
+matching the pattern already used for VersionPartAtom::literal.
+
+---
+ libmambapy/bindings/specs.cpp | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/libmambapy/bindings/specs.cpp b/libmambapy/bindings/specs.cpp
+index 1111111..2222222 100644
+--- a/libmambapy/bindings/specs.cpp
++++ b/libmambapy/bindings/specs.cpp
+@@ -345,8 +345,8 @@
+             .def("__copy__", &copy<UnresolvedChannel>)
+             .def("__deepcopy__", &deepcopy<UnresolvedChannel>, py::arg("memo"))
+             .def_property_readonly("type", &UnresolvedChannel::type)
+-            .def_property_readonly("location", &UnresolvedChannel::location)
+-            .def_property_readonly("platform_filters", &UnresolvedChannel::platform_filters);
++            .def_property_readonly("location", [](const UnresolvedChannel& self) -> const std::string& { return self.location(); })
++            .def_property_readonly("platform_filters", [](const UnresolvedChannel& self) -> const auto& { return self.platform_filters(); });
+
+         py::class_<BasicHTTPAuthentication>(m, "BasicHTTPAuthentication")
+             .def(
+--
+2.49.1
+
