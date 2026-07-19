@@ -1,4 +1,4 @@
-# Copyright 2024-2025 Gentoo Authors
+# Copyright 2024-2026 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=8
@@ -19,9 +19,9 @@ RDEPEND="
 	app-arch/rpm
 	app-arch/xz-utils
 	app-arch/zstd:=
-	sys-libs/zlib
+	virtual/zlib:=
 	expat? ( dev-libs/expat )
-	!expat? ( dev-libs/libxml2 )
+	!expat? ( dev-libs/libxml2:= )
 	zchunk? ( app-arch/zchunk )
 "
 DEPEND="${RDEPEND}"
@@ -30,6 +30,9 @@ BDEPEND="virtual/pkgconfig"
 src_prepare() {
 	# remove forced CFLAGS -g -O2; bug 936869
 	sed "/CMAKE_C_FLAGS_${CMAKE_BUILD_TYPE^^}/d" -i CMakeLists.txt || die
+	# raise cmake minimum version for future compatibility
+	# https://github.com/openSUSE/libsolv/pull/581#issuecomment-2751109001
+	sed "/CMAKE_MINIMUM_REQUIRED/s/3.5/3.10/" -i CMakeLists.txt || die
 	cmake_src_prepare
 }
 
