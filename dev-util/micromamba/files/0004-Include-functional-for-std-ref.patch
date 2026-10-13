@@ -1,0 +1,23 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Guanpeng Xu <herberteuler@gmail.com>
+Date: Tue, 13 Oct 2026 00:00:00 -0700
+Subject: [PATCH] Include <functional> for std::ref
+
+GCC 16's libstdc++ no longer pulls in <functional> transitively.
+Upstream fixed this in 2.6.0.
+
+---
+ libmamba/include/mamba/util/random.hpp | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/libmamba/include/mamba/util/random.hpp b/libmamba/include/mamba/util/random.hpp
+--- a/libmamba/include/mamba/util/random.hpp
++++ b/libmamba/include/mamba/util/random.hpp
+@@ -10,6 +10,7 @@
+ #include <algorithm>
+ #include <array>
+ #include <cstring>
++#include <functional>
+ #include <limits>
+ #include <random>
+ #include <string>

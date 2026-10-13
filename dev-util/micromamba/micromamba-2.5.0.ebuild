@@ -64,6 +64,7 @@ PATCHES=(
 	"${FILESDIR}"/0001-Remove-the-requirement-of-static-libraries.patch
 	"${FILESDIR}"/0002-Align-with-FHS-Gentoo-s-path-policy.patch
 	"${FILESDIR}"/0003-Disambiguate-ref-qualified-overloads-in-pybind11-bin.patch
+	"${FILESDIR}"/0004-Include-functional-for-std-ref.patch
 )
 
 src_prepare() {
